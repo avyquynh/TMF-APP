@@ -1,16 +1,11 @@
 import { ArrowLeft } from 'lucide-react';
 
 export function JoinCreateCommunity({ 
+  communities,
   onJoinCommunity, 
   onCreateCommunity,
   onBack 
 }) {
-  const communities = [
-    { id: '1', name: 'Tiger Mountain Foundation', logo: '🏔️', location: 'Phoenix, AZ' },
-    { id: '2', name: 'Stat Trackers at ASU', logo: '🔱', location: 'Tempe, AZ' },
-    { id: '3', name: 'Lab at ASU', logo: '🔱', location: 'Tempe, AZ' },
-  ];
-
   return (
     <div className="min-h-screen bg-[#f5f0eb] flex flex-col p-6">
       <button onClick={onBack} className="mb-8 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center">
@@ -21,6 +16,7 @@ export function JoinCreateCommunity({
         <h1 className="text-[#8b6f47] text-3xl text-center mb-8">Join or Create a Community</h1>
         
         <div className="space-y-4 mb-8">
+          {/* Renders communities from the prop */}
           {communities.map((community) => (
             <button
               key={community.id}

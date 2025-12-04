@@ -1,29 +1,17 @@
 import { Droplet } from 'lucide-react';
 
-export function Weather() {
-  // Mock realistic weather data - in production, this would come from a weather API
-  const currentConditions = [
-    { label: 'Temperature', value: '68°F' },
-    { label: 'Humidity', value: '52%' },
-    { label: 'Wind Speed', value: '7 mph' },
-    { label: 'Rainfall', value: '15%' }
-  ];
-
-  // Generate realistic 7-day forecast - COMPLETED mock data
-  const forecast = [
-    { day: 'Mon', high: '72', low: '55', rain: '10%', icon: '☀️' },
-    { day: 'Tue', high: '70', low: '58', rain: '20%', icon: '🌤️' },
-    { day: 'Wed', high: '65', low: '52', rain: '35%', icon: '⛅' },
-    { day: 'Thu', high: '60', low: '48', rain: '60%', icon: '🌧️' }, // High rain day 1
-    { day: 'Fri', high: '62', low: '50', rain: '25%', icon: '🌤️' },
-    { day: 'Sat', high: '68', low: '54', rain: '15%', icon: '☀️' },
-    { day: 'Sun', high: '75', low: '60', rain: '10%', icon: '☀️' }
-  ];
-
-  // Determine watering suggestion based on forecast
-  const highRainDays = forecast.filter(day => parseInt(day.rain) > 40).length;
+export function Weather({ location, currentConditions, forecast }) {
+  if (!currentConditions || !forecast) {
+    return (
+      <div className="px-6 py-6 pb-24 bg-[#e8f0e8] text-center text-[#3d5a4a]">
+        <h2 className="text-xl mb-4">Weather Data Unavailable</h2>
+        <p>Please ensure a valid garden location is set for this community.</p>
+      </div>
+    );
+  }
   
-  // CORRECTED syntax error in conditional logic
+  const highRainDays = Array.isArray(forecast) ? forecast.filter(day => parseInt(day.rain) > 40).length : 0;
+  
   const wateringSuggestion = highRainDays >= 2 
     ? 'Significant rain is expected this week, reduce watering by 30%.'
     : highRainDays >= 1
@@ -32,6 +20,8 @@ export function Weather() {
 
   return (
     <div className="px-6 py-6 pb-24 bg-[#e8f0e8]">
+      <h1 className="text-[#3d5a4a] text-3xl mb-8 text-center">{location} Garden Weather</h1>
+      
       <div className="mb-6">
         <h2 className="text-[#3d5a4a]">Current Conditions</h2>
       </div>
