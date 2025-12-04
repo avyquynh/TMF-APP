@@ -5,11 +5,8 @@ import { PlantDetailModal } from './PlantDetailModal';
 export function Home({ 
   plants, 
   onViewWeekly 
-}>;
-  }>;
-  onViewWeekly: (plantId) => void;
 }) {
-  const [selectedPlant, setSelectedPlant] = useState<typeof plants[0] | null>(null);
+  const [selectedPlant, setSelectedPlant] = useState(null);
 
   return (
     <div className="px-6 py-6 pb-24">

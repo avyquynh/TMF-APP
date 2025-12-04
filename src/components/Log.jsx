@@ -1,3 +1,5 @@
+"use client";
+
 import { Thermometer, Leaf, Droplets } from 'lucide-react';
 import { useState } from 'react';
 import { IrrigationLogModal } from './IrrigationLogModal';
@@ -8,20 +10,12 @@ export function Log({
   plants,
   onLogActivity,
   logActivities 
-}>;
-  onLogActivity: (type, plantId, value) => void;
-  logActivities<{
-    type;
-    plantId;
-    plantName;
-    value;
-    timestamp;
-  }>;
 }) {
   const [showIrrigationModal, setShowIrrigationModal] = useState(false);
   const [showTemperatureModal, setShowTemperatureModal] = useState(false);
   const [showPhModal, setShowPhModal] = useState(false);
 
+  // Note: Assuming 'date' passed to this function is a Date object.
   const formatTimestamp = (date) => {
     const now = new Date();
     const diffMs = now.getTime() - date.getTime();
@@ -33,14 +27,14 @@ export function Log({
       const timeStr = date.toLocaleTimeString('en-US', { 
         hour: 'numeric', 
         minute: '2-digit',
-        hour12 
+        hour12: true // Corrected syntax
       });
       return `Today, ${timeStr}`;
     } else if (diffDays === 1) {
       const timeStr = date.toLocaleTimeString('en-US', { 
         hour: 'numeric', 
         minute: '2-digit',
-        hour12 
+        hour12: true // Corrected syntax
       });
       return `Yesterday, ${timeStr}`;
     } else {
@@ -49,7 +43,7 @@ export function Log({
         day: 'numeric',
         hour: 'numeric',
         minute: '2-digit',
-        hour12
+        hour12: true // Corrected syntax
       });
     }
   };
@@ -73,7 +67,7 @@ export function Log({
       <div className="grid grid-cols-2 gap-4 mb-6">
         <button
           onClick={() => setShowTemperatureModal(true)}
-          className="bg-white rounded-3xl p-6 shadow-lg hover-xl transition-shadow"
+          className="bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow" // Fixed hover class syntax
         >
           <div className="flex flex-col items-center">
             <Thermometer size={40} className="text-[#8b6f47] mb-3" />
@@ -86,7 +80,7 @@ export function Log({
         
         <button
           onClick={() => setShowPhModal(true)}
-          className="bg-white rounded-3xl p-6 shadow-lg hover-xl transition-shadow"
+          className="bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow" // Fixed hover class syntax
         >
           <div className="flex flex-col items-center">
             <Leaf size={40} className="text-[#6b8e75] mb-3" />
@@ -100,7 +94,7 @@ export function Log({
       
       <button
         onClick={() => setShowIrrigationModal(true)}
-        className="w-full bg-white rounded-3xl p-6 shadow-lg hover-xl transition-shadow mb-6"
+        className="w-full bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow mb-6" // Fixed hover class syntax
       >
         <div className="flex flex-col items-center">
           <Droplets size={40} className="text-[#5a8a9a] mb-3" />
@@ -117,6 +111,8 @@ export function Log({
           <p className="text-[#8b6f47] text-center py-4">No recent activity</p>
         ) : (
           <div className="space-y-4">
+            {/* The timestamp property needs to be converted to a Date object if it's a string,
+                but for this conversion, we assume it's a Date object as used in formatTimestamp. */}
             {logActivities.slice(0, 5).map((activity, index) => (
               <div key={index} className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-[#c8ddc4] rounded-full flex items-center justify-center flex-shrink-0">

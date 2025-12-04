@@ -6,24 +6,21 @@ export function Profile({
   onLogout,
   onOpenSettings,
   onUpdateProfilePicture
-};
-  onLogout: () => void;
-  onOpenSettings: () => void;
-  onUpdateProfilePicture: (picture) => void;
 }) {
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef(null); // Removed TypeScript generic
 
   const handleEditPicture = () => {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (e.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e) => { // Removed TypeScript type
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
         if (event.target?.result) {
-          onUpdateProfilePicture(event.target.result as string);
+          // Type casting removed
+          onUpdateProfilePicture(event.target.result);
         }
       };
       reader.readAsDataURL(file);
@@ -56,7 +53,7 @@ export function Profile({
               <User size={64} className="text-white" />
             )}
           </div>
-          <button onClick={handleEditPicture} className="text-[#8b6f47] cursor-pointer hover">
+          <button onClick={handleEditPicture} className="text-[#8b6f47] cursor-pointer hover:text-[#2d5a3d]">
             Edit Picture
           </button>
         </div>
@@ -94,14 +91,14 @@ export function Profile({
         <div className="space-y-4">
           <button
             onClick={onLogout}
-            className="w-full bg-[#2d5a3d] text-white py-4 rounded-2xl hover-[#234a31] transition-colors text-center shadow-md"
+            className="w-full bg-[#2d5a3d] text-white py-4 rounded-2xl hover:bg-[#234a31] transition-colors text-center shadow-md"
           >
             Sign Out
           </button>
           
           <button
             onClick={onOpenSettings}
-            className="w-full bg-[#2d5a3d] text-white py-4 rounded-2xl hover-[#234a31] transition-colors text-center shadow-md"
+            className="w-full bg-[#2d5a3d] text-white py-4 rounded-2xl hover:bg-[#234a31] transition-colors text-center shadow-md"
           >
             User Settings
           </button>

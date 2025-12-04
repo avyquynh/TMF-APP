@@ -9,22 +9,24 @@ export function Weather() {
     { label: 'Rainfall', value: '15%' }
   ];
 
-  // Generate realistic 7-day forecast
+  // Generate realistic 7-day forecast - COMPLETED mock data
   const forecast = [
-    { day: 'Mon', high, low, rain: '10% rain', icon: '☀️' },
-    { day: 'Tue', high, low, rain: '20% rain', icon: '🌤️' },
-    { day: 'Wed', high, low, rain: '35% rain', icon: '⛅' },
-    { day: 'Thu', high, low, rain: '60% rain', icon: '🌧️' },
-    { day: 'Fri', high, low, rain: '25% rain', icon: '🌤️' },
-    { day: 'Sat', high, low, rain: '15% rain', icon: '☀️' },
-    { day: 'Sun', high, low, rain: '10% rain', icon: '☀️' }
+    { day: 'Mon', high: '72', low: '55', rain: '10%', icon: '☀️' },
+    { day: 'Tue', high: '70', low: '58', rain: '20%', icon: '🌤️' },
+    { day: 'Wed', high: '65', low: '52', rain: '35%', icon: '⛅' },
+    { day: 'Thu', high: '60', low: '48', rain: '60%', icon: '🌧️' }, // High rain day 1
+    { day: 'Fri', high: '62', low: '50', rain: '25%', icon: '🌤️' },
+    { day: 'Sat', high: '68', low: '54', rain: '15%', icon: '☀️' },
+    { day: 'Sun', high: '75', low: '60', rain: '10%', icon: '☀️' }
   ];
 
   // Determine watering suggestion based on forecast
   const highRainDays = forecast.filter(day => parseInt(day.rain) > 40).length;
+  
+  // CORRECTED syntax error in conditional logic
   const wateringSuggestion = highRainDays >= 2 
-    ? 'Rain is expected this week, reduce watering by 30%.'
-     === 1
+    ? 'Significant rain is expected this week, reduce watering by 30%.'
+    : highRainDays >= 1
     ? 'Light rain expected, reduce watering by 15%.'
     : 'No significant rain expected, maintain regular watering schedule.';
 
@@ -53,7 +55,7 @@ export function Weather() {
             <p className="text-[#3d5a4a] mb-4">{day.day}</p>
             <div className="text-5xl mb-4">{day.icon}</div>
             <p className="text-[#6b8e75] text-sm mb-2">{day.high}° / {day.low}°</p>
-            <p className="text-[#6b8e75] text-sm">{day.rain}</p>
+            <p className="text-[#6b8e75] text-sm">{day.rain} chance</p>
           </div>
         ))}
       </div>

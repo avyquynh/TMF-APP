@@ -1,3 +1,5 @@
+"use client";
+
 import { X } from 'lucide-react';
 import { useState } from 'react';
 
@@ -5,16 +7,14 @@ export function IrrigationLogModal({
   plants,
   onClose,
   onSubmit
-}>;
-  onClose: () => void;
-  onSubmit: (plantId, moistureLevel) => void;
 }) {
   const [selectedPlant, setSelectedPlant] = useState('');
   const [isConnected, setIsConnected] = useState(false);
   const [currentMoisture, setCurrentMoisture] = useState(38);
   const [expectedMoisture] = useState(35);
 
-  const handlePlantSelect = (e.ChangeEvent<HTMLInputElement>) => {
+  const handlePlantSelect = (e) => {
+    // Corrected input change event handling for JSX
     const value = e.target.value;
     setSelectedPlant(value);
     // Simulate sensor connection when plant is entered
@@ -34,6 +34,9 @@ export function IrrigationLogModal({
 
   const handleSubmit = () => {
     if (selectedPlant) {
+      // The onSubmit prop is expected to be defined here
+      // The original code passed `onSubmit` as a prop but also defined a local `handleSubmit`.
+      // Assuming the local `handleSubmit` is meant to call the prop `onSubmit`:
       onSubmit(selectedPlant, currentMoisture);
       onClose();
     }
@@ -78,6 +81,7 @@ export function IrrigationLogModal({
             />
             {isConnected && selectedPlant && (
               <p className="text-[#8b8b8b] text-sm mt-2 text-center">
+                {/* Assuming plant name format is 'Name - Sensor' */}
                 {selectedPlant.split(' - ')[0]} is connected to Sensor_01
               </p>
             )}
@@ -119,7 +123,8 @@ export function IrrigationLogModal({
                 </div>
                 
                 <div className="flex items-center justify-center gap-2">
-                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor.color }} />
+                  {/* Corrected syntax: style={{ backgroundColor: status.color }} */}
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: status.color }} />
                   <span className="text-[#6b8e75]">Soil Moisture:</span>
                   <span className="text-[#6b8e75]">{status.text}</span>
                 </div>
@@ -128,9 +133,10 @@ export function IrrigationLogModal({
           )}
           
           <button
-            onClick={isConnected && selectedPlant ? handleSubmit }
+            // Corrected syntax: removed extraneous curly brace and fixed disabled attribute
+            onClick={isConnected && selectedPlant ? handleSubmit : handleConnect}
             disabled={!selectedPlant}
-            className="w-full bg-[#2d5a3d] text-white py-4 rounded-2xl hover-[#234a31] transition-colors text-center disabled-[#a8a8a8] disabled-not-allowed"
+            className="w-full bg-[#2d5a3d] text-white py-4 rounded-2xl hover-[#234a31] transition-colors text-center disabled:bg-[#a8a8a8] disabled:cursor-not-allowed"
           >
             {isConnected && selectedPlant ? 'Submit Log' : 'Connect to Sensor'}
           </button>

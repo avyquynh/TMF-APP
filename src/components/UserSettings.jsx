@@ -5,10 +5,8 @@ export function UserSettings({
   user,
   onSave,
   onBack
-};
-  onSave: (updatedUser) => void;
-  onBack: () => void;
 }) {
+  // Removed TypeScript type annotations for useState
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [language, setLanguage] = useState(user.language);
@@ -23,7 +21,8 @@ export function UserSettings({
       <div className="bg-[#c8ddc4] px-6 py-4 flex items-center gap-4">
         <button
           onClick={onBack}
-          className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover-gray-50 transition-colors"
+          // Corrected hover class syntax
+          className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-50 transition-colors"
         >
           <ArrowLeft size={20} className="text-[#8b6f47]" />
         </button>
@@ -41,7 +40,8 @@ export function UserSettings({
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-[#c8ddc4] bg-[#f5f0eb] focus-none focus-2 focus-[#2d5a3d]"
+                // Corrected focus class syntax
+                className="w-full px-4 py-3 rounded-xl border border-[#c8ddc4] bg-[#f5f0eb] focus:ring-2 focus:ring-[#2d5a3d] focus:outline-none"
               />
             </div>
 
@@ -51,7 +51,8 @@ export function UserSettings({
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-[#c8ddc4] bg-[#f5f0eb] focus-none focus-2 focus-[#2d5a3d]"
+                // Corrected focus class syntax
+                className="w-full px-4 py-3 rounded-xl border border-[#c8ddc4] bg-[#f5f0eb] focus:ring-2 focus:ring-[#2d5a3d] focus:outline-none"
               />
             </div>
           </div>
@@ -66,7 +67,7 @@ export function UserSettings({
               className={`w-full px-6 py-4 rounded-2xl border-2 flex items-center gap-4 transition-colors ${
                 language === 'English'
                   ? 'border-[#2d5a3d] bg-[#d4e8d4]'
-                  : 'border-[#c8ddc4] bg-white hover-[#f5f0eb]'
+                  : 'border-[#c8ddc4] bg-white hover:bg-[#f5f0eb]' // Corrected hover class syntax
               }`}
             >
               <div className="w-10 h-10 rounded-full flex items-center justify-center text-xl">
@@ -80,7 +81,7 @@ export function UserSettings({
               className={`w-full px-6 py-4 rounded-2xl border-2 flex items-center gap-4 transition-colors ${
                 language === 'Spanish'
                   ? 'border-[#2d5a3d] bg-[#d4e8d4]'
-                  : 'border-[#c8ddc4] bg-white hover-[#f5f0eb]'
+                  : 'border-[#c8ddc4] bg-white hover:bg-[#f5f0eb]' // Corrected hover class syntax
               }`}
             >
               <div className="w-10 h-10 rounded-full flex items-center justify-center text-xl">
@@ -97,14 +98,16 @@ export function UserSettings({
           <textarea
             value={bio}
             onChange={(e) => setBio(e.target.value)}
-            className="w-full px-4 py-3 rounded-xl border border-[#c8ddc4] bg-[#f5f0eb] focus-none focus-2 focus-[#2d5a3d] min-h-[120px] resize-none"
+            // Corrected focus class syntax
+            className="w-full px-4 py-3 rounded-xl border border-[#c8ddc4] bg-[#f5f0eb] focus:ring-2 focus:ring-[#2d5a3d] focus:outline-none min-h-[120px] resize-none"
             placeholder="Tell us about yourself..."
           />
         </div>
 
         <button
           onClick={handleSave}
-          className="w-full bg-[#2d5a3d] text-white py-4 rounded-2xl hover-[#234a31] transition-colors text-center shadow-md"
+          // Corrected hover class syntax
+          className="w-full bg-[#2d5a3d] text-white py-4 rounded-2xl hover:bg-[#234a31] transition-colors text-center shadow-md"
         >
           Save Changes
         </button>

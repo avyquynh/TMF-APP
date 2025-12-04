@@ -3,9 +3,6 @@ import { X, Droplet, Thermometer, Beaker } from 'lucide-react';
 export function PlantDetailModal({
   plant,
   onClose
-}>;
-  };
-  onClose: () => void;
 }) {
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   
@@ -15,7 +12,9 @@ export function PlantDetailModal({
   const range = maxMoisture - minMoisture || 1;
   
   const points = plant.moistureHistory.map((value, index) => {
+    // X coordinate is normalized from 0 to 100 based on index
     const x = (index / (plant.moistureHistory.length - 1)) * 100;
+    // Y coordinate is inverted (high moisture is low Y) and scaled from 10 to 90
     const y = 100 - ((value - minMoisture) / range) * 80 - 10;
     return `${x},${y}`;
   }).join(' ');
@@ -30,7 +29,7 @@ export function PlantDetailModal({
           </div>
           <button
             onClick={onClose}
-            className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center hover-gray-100 transition-colors"
+            className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center hover:bg-gray-100 transition-colors" // Corrected hover class syntax
           >
             <X className="text-[#8b6f47]" size={24} />
           </button>

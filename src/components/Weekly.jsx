@@ -3,16 +3,18 @@ import { useState } from 'react';
 
 export function Weekly({ 
   plants
-}>;
 }) {
   const [weekStart, setWeekStart] = useState('October 19, 2025');
   const [weekEnd, setWeekEnd] = useState('October 26, 2025');
 
   // Calculate optimal moisture band percentages
-  const totalTime = 168; // hours in a week
+  const totalTime = 168; // hours in a week (unused in mock data)
   const tooDry = 15;
   const optimal = 75;
   const tooWet = 10;
+
+  // Mock color palette for bar chart
+  const colors = ['#6b8e75', '#7a9d85', '#5a7a66', '#6b9d8e', '#7aa595'];
 
   return (
     <div className="min-h-screen bg-[#2d4a3d] pb-24">
@@ -37,14 +39,15 @@ export function Weekly({
             <div className="flex items-end justify-around h-64 mb-4">
               {plants.map((plant, index) => {
                 const height = (plant.currentMoisture / 100) * 100;
-                const colors = ['#6b8e75', '#7a9d85', '#5a7a66', '#6b9d8e', '#7aa595'];
+                
+                // Corrected inline style syntax for background color
                 return (
                   <div key={plant.id} className="flex flex-col items-center flex-1">
                     <div 
                       className="w-full mx-1 rounded-t-xl transition-all"
                       style={{ 
                         height: `${height}%`,
-                        backgroundColor % colors.length]
+                        backgroundColor: colors[index % colors.length] // Corrected access to color array
                       }}
                     />
                   </div>
@@ -93,12 +96,21 @@ export function Weekly({
           
           <div className="bg-[#1e3329] rounded-3xl p-6 space-y-6">
             {plants.map((plant) => {
-              const phPercent = ((plant.ph - 5) / 4) * 100; // pH 5-9 scale mapped to 0-100%
+              // Ensure plant.ph is treated as a number; using a simple range 4-10 for visualization
+              const phValue = parseFloat(plant.ph) || 7.0;
+              const minPh = 4;
+              const maxPh = 10;
+              const phRange = maxPh - minPh;
+              
+              // Calculate position: (Current PH - Min PH) / PH Range * 100%
+              // Clamped to 0-100% range
+              const phPercent = Math.min(100, Math.max(0, ((phValue - minPh) / phRange) * 100)); 
+              
               return (
                 <div key={plant.id}>
                   <div className="flex justify-between text-white mb-2">
                     <span className="text-sm">{plant.name} - {plant.type}</span>
-                    <span className="text-sm">{plant.ph}</span>
+                    <span className="text-sm">{phValue.toFixed(1)}</span>
                   </div>
                   <div className="relative h-8 bg-gradient-to-r from-[#8b6f7a] via-[#6b8e75] to-[#7aa595] rounded-full">
                     <div 
