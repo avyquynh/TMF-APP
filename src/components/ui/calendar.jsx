@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react@0.487.0";
-import { DayPicker } from "react-day-picker@8.10.1";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { DayPicker } from "react-day-picker";
 
 import { cn } from "./utils";
 import { buttonVariants } from "./button";
@@ -23,7 +23,7 @@ function Calendar({
         caption: "flex justify-center pt-1 relative items-center w-full",
         caption_label: "text-sm font-medium",
         nav: "flex items-center gap-1",
-        nav_button(
+        nav_button: cn(
           buttonVariants({ variant: "outline" }),
           "size-7 bg-transparent p-0 opacity-50 hover-100",
         ),
@@ -34,13 +34,13 @@ function Calendar({
         head_cell:
           "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem]",
         row: "flex w-full mt-2",
-        cell(
+        cell: cn(
           "relative p-0 text-center text-sm focus-within focus-within-20 [&([aria-selected])]-accent [&([aria-selected].day-range-end)]-r-md",
           props.mode === "range"
             ? "[&(>.day-range-end)]-r-md [&(>.day-range-start)]-l-md first&([aria-selected])]-l-md last&([aria-selected])]-r-md"
             : "[&([aria-selected])]-md",
         ),
-        day(
+        day: cn(
           buttonVariants({ variant: "ghost" }),
           "size-8 p-0 font-normal aria-selected-100",
         ),

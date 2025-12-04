@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cva, type VariantProps } from "class-variance-authority@0.7.1";
+import { cva } from "class-variance-authority@0.7.1";
 
 import { cn } from "./utils";
 
@@ -23,7 +23,7 @@ function Alert({
   className,
   variant,
   ...props
-} & VariantProps<typeof alertVariants>) {
+}) {
   return (
     <div
       data-slot="alert"
